@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript">
     	$(function(){
     		testService.save('a','zuobin',30,function(data,exception){
-    			alert(data);
+    			    alert(data);
     		});
     	});
     </script>
