@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="easy-component" basedir="." default="jar">
+	<property name="eclipse_home" value="../../../../../Applications/MyEclipse Professional 2014/MyEclipse Professional 2014.app/Contents/Profile/plugins/com.genuitec.eclipse.j2eedt.core_11.5.0.me201311281640/data/libraryset/EE_6/"/>
+	<property name="compile.target" value="1.6"/>
+	<property name="compile.source" value="1.6"/>
+	<property name="compile.encoding" value="UTF-8"/>
+	<property name="compile.debug" value="true"/>
+	<property name="build.dir" value="${basedir}"/>
+	<property name="build.jar.dir" value="${build.dir}/dist"/>
+	<property name="build.lib.dir" value="${build.dir}/WebRoot/WEB-INF/lib"/>
+	<property name="build.classes.dir" value="${build.dir}/WebRoot/WEB-INF/classes"/>
+	<property name="src.dir" value="${build.dir}/src"/>
+	<property name="config.dir" value="${build.dir}/config"/>
+	<property name="name" value="mymvc"/>
+	<property name="version" value="1.0"/>
+	<property name="final.name" value="${name}-${version}"/>
+	<property name="compile.includes" value="cn/com/zuo/**/*.java"/>
+	
+	<path id="master-classpath">
+		<fileset dir="${build.lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	<path id="build-classpath">
+		<fileset dir="${eclipse_home}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	<target name="clean">
+		<tstamp />
+		<delete dir="${build.classes.dir}" />
+		<delete file="${build.dir}/${final.name}-${DSTAMP}.jar" />
+	</target>
+	<target name="compile" depends="clean" description="Compile shareable components">
+		<mkdir dir="${build.classes.dir}" />
+		<javac destdir="${build.classes.dir}" includes="${compile.includes}" source="${compile.source}" target="${compile.target}" encoding="${compile.encoding}" debug="${compile.debug}" deprecation="false" optimize="true" failonerror="true" includeantruntime="true">
+			<src path="${src.dir}" />
+			<classpath refid="master-classpath" />
+			<classpath refid="build-classpath" />
+		</javac>
+	</target>
+	<target name="jar" depends="compile" description="Create jar">
+		<jar jarfile="${build.jar.dir}/${final.name}-${DSTAMP}.jar">
+			<manifest>
+				<attribute name="Specification-Title" value="My MVC framework" />
+				<attribute name="Specification-Version" value="${version}" />
+				<attribute name="Specification-Vendor" value="My MVC Software Foundation" />
+				<attribute name="X-Compile-Source-JDK" value="${compile.source}" />
+				<attribute name="X-Compile-Target-JDK" value="${compile.target}" />
+			</manifest>
+			<fileset dir="${build.classes.dir}">
+				<include name="**/*.class" />
+			</fileset>
+			<fileset dir="${config.dir}">
+				<include name="**/*.xml" />
+				<include name="**/*.properties" />
+				<include name="**/*.xsd" />
+			</fileset>
+		</jar>
+	</target>
+</project>

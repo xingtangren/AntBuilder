@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.mymvc.org" xmlns="http://www.mymvc.org"
+	elementFormDefault="qualified">
+	<xs:element name="mvc">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="actions">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="action" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="result" maxOccurs="unbounded"
+											minOccurs="0">
+											<xs:complexType>
+												<xs:simpleContent>
+													<xs:extension base="xs:string">
+														<xs:attribute name="name" type="xs:string" use="required" />
+														<xs:attribute name="type" type="xs:string" default="redirect" />
+													</xs:extension>
+												</xs:simpleContent>
+
+											</xs:complexType>
+										</xs:element>
+									</xs:sequence>
+									<xs:attribute name="name" type="xs:string" use="required" />
+									<xs:attribute name="class" type="xs:string" use="required" />
+									<xs:attribute name="method" type="xs:string" use="optional" />
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
